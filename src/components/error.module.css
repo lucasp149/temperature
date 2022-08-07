@@ -1,0 +1,10 @@
+.cont {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: rgb(47, 51, 51);
+    width: 70vw;
+    height: 70vh;
+    text-align: center;
+}
