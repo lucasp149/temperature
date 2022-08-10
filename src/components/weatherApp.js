@@ -4,18 +4,21 @@ import WeatherMainInfo from "./weatherMainInfo";
 import Loading from "./loading"
 import Error from "./error"
 import styles from "./weatherApp.module.css"
+import Favicon from 'react-favicon'
 
 export default function WeatherApp() {
 
     const [weather, setWeather] = useState(null);
     const [error, setError] = useState(null);
-
+    const [icon, setIcon] = useState("");
     useEffect(() => {
         loadInfo();
     }, [])
 
     useEffect(() => {
         document.title = `Weather - ${weather?.location.name ?? "..."}`;
+        setIcon(`https:${weather?.current.condition.icon}`);
+        
     }, [weather])
 
     async function loadInfo(city = 'london') {
@@ -44,11 +47,18 @@ export default function WeatherApp() {
         loadInfo(city);
     }
 
+    if (error) {
+        return (
+            <div className={styles.weatherContainer}>
+                <><WeatherForm onChangeCity={handleChangeCity} /><Error /></>
+            </div>
+        )
+    }
+
     return (
         <div className={styles.weatherContainer}>
-           
+            <Favicon url={icon}/>
             <WeatherForm onChangeCity={handleChangeCity} />
-            {error && <Error/>}
             {weather ? <WeatherMainInfo weather={weather} /> : <Loading />}
 
 
