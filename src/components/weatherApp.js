@@ -43,6 +43,14 @@ export default function WeatherApp() {
         setWeather(null);
         loadInfo(city);
     }
+    
+     if (error) {
+        return (
+            <div className={styles.weatherContainer}>
+                <><WeatherForm onChangeCity={handleChangeCity} /><Error /></>
+            </div>
+        )
+    }
 
     return (
         <div className={styles.weatherContainer}>
